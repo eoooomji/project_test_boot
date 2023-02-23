@@ -1,6 +1,5 @@
 package com.ugotfilm.choice.dto;
 
-import java.sql.Date;
 
 import org.springframework.stereotype.Component;
 
@@ -17,13 +16,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ChoiceDTO {
-	private int usercode;
 	
-	private int moviecode;
-	
-	private int personcode;
-	
-	private int genrecode;
-	
-	private Date choicedate;
+	private int max;
+	private int min;
+	private int ageGroup;
+	private String gender;
 }

@@ -19,6 +19,12 @@
 		WHERE username=#{username, jdbcType=VARCHAR}
 	</select>
 	 
+	<!-- 회원 정보 가져오기 -->
+	<select id="userInfo"  resultType="UserDTO">
+		SELECT * FROM ugotfilm_user
+		WHERE usercode=#{usercode, jdbcType=VARCHAR}
+	</select>
+	
 	<!-- 정보 수정 -->
 	
 	<!-- 탈퇴 -->

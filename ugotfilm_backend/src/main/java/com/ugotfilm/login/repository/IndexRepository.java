@@ -21,4 +21,7 @@ public interface IndexRepository {
 	//아이디 중복 체크
 	
 	//닉네임 중복 체크
+	
+	
+	UserDTO userInfo(UserDTO user);
 }

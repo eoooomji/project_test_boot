@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ugotfilm.choice.dao.ChoiceDAO;
+import com.ugotfilm.choice.dao.ChoiceDao;
+import com.ugotfilm.choice.dto.ChoiceDTO;
+import com.ugotfilm.data.dto.GenreDTO;
 import com.ugotfilm.data.dto.MovieDTO;
+import com.ugotfilm.data.dto.PersonDTO;
 import com.ugotfilm.notice.dto.BoardDTO;
 import com.ugotfilm.notice.dto.PageDTO;
 import com.ugotfilm.login.dto.UserDTO;
@@ -14,76 +17,86 @@ import com.ugotfilm.login.dto.UserDTO;
 @Service
 public class ChoiceServiceImp implements ChoiceService{
 	@Autowired
-	private ChoiceDAO choiceDao;
+	private ChoiceDao Dao;
 	
 	public ChoiceServiceImp() {
 		
 	}
 
-	@Override
-	public int countProcess() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<BoardDTO> listProcess(PageDTO pv) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void insertProcess(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public BoardDTO contentProcess(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void reStepProcess(BoardDTO dto) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public BoardDTO updateSelectProcess(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateProcess(BoardDTO dto, String urlpath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteProcess(int num, String urlpath) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public String fileSelectprocess(int num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<MovieDTO> genderProcess(int num) throws Exception {
-		return choiceDao.gender(num);
+		return Dao.gender(num);
 	}
 
 	@Override
 	public List<MovieDTO> genreProcess(int num) throws Exception {
-		return choiceDao.genre(num);
+		return Dao.genre(num);
+	}
+
+	@Override
+	public GenreDTO bestGenderGenre(UserDTO user) throws Exception {
+		return Dao.bestGenderGenre(user);
+	}
+
+	@Override
+	public List<MovieDTO> bestGenderMovie(UserDTO user) throws Exception {
+		return Dao.bestGenderMovie(user);
+	}
+
+	@Override
+	public PersonDTO bestGenderDirector(UserDTO user) throws Exception {
+		return Dao.bestGenderDirector(user);
+	}
+
+	@Override
+	public PersonDTO bestGenderCast(UserDTO user) throws Exception {
+		return Dao.bestGenderCast(user);
 	}
 	
-	
+	@Override
+	public GenreDTO bestBirthGenre(ChoiceDTO dto) throws Exception {
+		
+		return Dao.bestBirthGenre(dto);
+	}
+
+	@Override
+	public List<MovieDTO> bestBirthMovie(ChoiceDTO dto) throws Exception {
+		return Dao.bestBirthMovie(dto);
+	}
+
+	@Override
+	public PersonDTO bestBirthDirector(ChoiceDTO dto) throws Exception {
+		return Dao.bestBirthDirector(dto);
+	}
+
+	@Override
+	public PersonDTO bestBirthCast(ChoiceDTO dto) throws Exception {
+		return Dao.bestBirthCast(dto);
+	}
+
+
+	@Override
+	public GenreDTO bestGenre() throws Exception {
+		return Dao.bestGenre();
+	}
+
+
+	@Override
+	public List<MovieDTO> bestMovie() throws Exception {
+		return Dao.bestMovie();
+	}
+
+
+	@Override
+	public PersonDTO bestDirector() throws Exception {
+		return Dao.bestDirector();
+	}
+
+
+	@Override
+	public PersonDTO bestCast() throws Exception {
+		return Dao.bestCast();
+	}
 	
 }
