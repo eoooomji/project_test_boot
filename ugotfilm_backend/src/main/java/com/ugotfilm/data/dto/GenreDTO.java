@@ -21,5 +21,6 @@ public class GenreDTO {
 	
 	private int id;
 	private int count;
-	
+
+	private String genre_name;
 }

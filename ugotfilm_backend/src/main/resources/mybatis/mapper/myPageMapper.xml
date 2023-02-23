@@ -5,10 +5,47 @@
 
 <mapper namespace="com.ugotfilm.mypage.dao.MypageDao">
 	<select id="wordcloud" parameterType="int" resultType="GenreDTO">
-	select b.*, a.count from (
-		select genrecode, count(genrecode) as count from ugotfilm_genre_choice 
-		where usercode=#{usercode} group by genrecode) a
-	left join ugotfilm_genre b on a.genrecode=b.genrecode
+select g.name, u.* from (select genrecode, count(genrecode) as count from ugotfilm_genre_choice where usercode= #{usercode} group by genrecode) u 
+left join ugotfilm_genre g on g.genrecode=u.genrecode order by count desc
+
 	</select>
 	
+	<select id="bestGenderGenre" parameterType="UserDTO" resultType="GenreDTO">
+		select r.count, g.*  from (
+		select * from (
+		select genrecode, count(genrecode) as count from (
+		select c.*, u.gender from ugotfilm_genre_choice c 
+		left join ugotfilm_user u 
+		on c.usercode=u.usercode 
+		where gender=#{gender})r 
+		group by genrecode 
+		order by count desc) where rownum=1)r 
+		left join ugotfilm_genre g 
+		on g.genrecode=r.genrecode
+	</select>
+	
+	
+	<!-- 유저가 선호하는 감독 리스트  -->
+	<select id="bestDirector" parameterType="UserDTO" resultType="PersonDTO">
+		select r.*, g.name from (
+		select * from (
+		select personcode, count(personcode) as count from (
+		select * from ugotfilm_director_choice where usercode=#{usercode})r 
+		group by personcode 
+		order by count desc))r 
+		left join ugotfilm_director g 
+		on g.personcode=r.personcode
+	</select>
+	
+	<!-- 유저가 선호하는 배우 리스트  -->
+	<select id="bestCast" parameterType="UserDTO" resultType="PersonDTO">
+		select r.*, g.name from (
+		select * from (
+		select personcode, count(personcode) as count from (
+		select * from ugotfilm_cast_choice where usercode=#{usercode})r 
+		group by personcode 
+		order by count desc))r 
+		left join ugotfilm_cast g 
+		on g.personcode=r.personcode
+	</select>
 </mapper>

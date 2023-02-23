@@ -1,70 +1,92 @@
 package com.ugotfilm.data.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ugotfilm.data.dao.DataDao;
 import com.ugotfilm.data.dto.GenreDTO;
 import com.ugotfilm.data.dto.MovieDTO;
 import com.ugotfilm.data.dto.PersonDTO;
 import com.ugotfilm.data.service.DataService;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class DataController {
-	
+
 	@Autowired
 	private DataService service;
-	
+
 	public DataController() {
-	
+
 	}
 
-	//영화 정보 체크
-	
-	//인물 정보 체크
-	
-	//장르 정보 체크
-	
-	
 	@PostMapping("/save/movie")
 	public String saveMovieMethod(@RequestBody MovieDTO data) {
-		data.setMoviecode(data.getId());
-		int res = service.saveMovieProcess(data);
+		System.out.println("---------------movie--------------------");
+		System.out.println("moviecode: " + data.getMoviecode());
+		System.out.println("title: " + data.getTitle());
+		System.out.println("poster_path: " + data.getPoster_url());
+		service.saveMovieProcess(data);
 		return "영화정보 추가 완료";
-	}//end listMethod()
+	}// end listMethod()
 
-	@PostMapping("/save/person")
-	public String savePersonMethod(@RequestBody PersonDTO data) {
-		service.savePersonProcess(data);
-		return "인물정보 추가 완료";
-	}//end listMethod()
+	@PostMapping("/save/crew")
+	public String saveCrewMethod(@RequestBody PersonDTO data) {
+		System.out.println("---------------crew--------------------");
+		System.out.println("crewcode: " + data.getPersoncode());
+		System.out.println("name: " + data.getName());
+		System.out.println("profile_path: " + data.getProfile_url());
+		service.saveCrewProcess(data);
+		return "감독정보 추가 완료";
+	}// end listMethod()
 	
-	@PostMapping("/save/genre")
-	public String savePersonMethod(@RequestBody GenreDTO data) {
-		service.saveGenreProcess(data);
-		return "인물정보 추가 완료";
-	}//end listMethod()
+
+	@PostMapping("/save/cast")
+	public String saveCastMethod(@RequestBody PersonDTO data) {
+		System.out.println("---------------cast--------------------");
+		System.out.println("castcode: " + data.getPersoncode());
+		System.out.println("name: " + data.getName());
+		System.out.println("profile_path: " + data.getProfile_url());
+//		int res = service.saveMovieProcess(data);
+		return "배우정보 추가 완료";
+	}// end listMethod()
 	
-	@GetMapping("/save/moviechoice/{usercode}/{moviecode}")
-	public String choiceMovieMethod(@PathVariable("usercode") int usercode,@PathVariable("moviecode") int moviecode) {
+
+	@PostMapping("/save/moviechoice")
+	public String choiceMovieMethod(@RequestParam(required = false) int usercode, @RequestParam(required = false) int moviecode) {
 		service.choiceMovieProcess(usercode, moviecode);
-		return "유저 클릭 영화 저장 완료";
-	}//end listMethod()
+		System.out.println("---------------moviechoice--------------------");
+		System.out.println("usercode: " + usercode);
+		System.out.println("moviecode: " + moviecode);
+		return "영화취향 저장 완료";
+	}// end listMethod()
 	
-	@GetMapping("/save/personchoice/{usercode}/{personcode}")
-	public String choicePersonMethod(@PathVariable("usercode")int usercode, @PathVariable("personcode")int personcode) {
-		service.choicePersonProcess(usercode, personcode);
+	@GetMapping("/save/crewchoice")
+	public String choicecrewMethod(@RequestParam(required = false) int usercode, @RequestParam(required = false) int personcode) {
+		System.out.println("---------------crewchoice--------------------");
+		System.out.println("usercode: " + usercode);
+		System.out.println("personcode: " + personcode);
+//		service.choiceCrewProcess(usercode, personcode);
+		return "감독취향 저장 완료";
+	}// end listMethod()
+	
+	@GetMapping("/save/castchoice/{usercode}/{castcode}")
+	public String choiceCastMethod(@PathVariable("usercode") int usercode,
+			@PathVariable("personcode") int personcode) {
+		service.choiceCastProcess(usercode, personcode);                                                                                                                                                                                                                                                                                                                    
 		return "유저 클릭 영화 저장 완료";
-	}//end listMethod()
+	}// end listMethod()
 	
 	@GetMapping("/save/genrechoice/{usercode}/{genrecode}")
-	public String choiceGenreMethod(@PathVariable("usercode")int usercode, @PathVariable("genrecode")int genrecode) {
-		service.choicePersonProcess(usercode, genrecode);
+	public String choiceGenreMethod(@PathVariable("usercode") int usercode, @PathVariable("genrecode") int genrecode) {
+		service.choiceGenreProcess(usercode, genrecode);
 		return "유저 클릭 영화 저장 완료";
-	}//end listMethod()
-}//end class
+	}// end listMethod()
+}// end class

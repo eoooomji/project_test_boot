@@ -100,7 +100,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public void deleteProcess(int num, String urlpath) {
 		String path = bDao.getFile(num);
-
+		
 		// num컬럼에 해당하는 첨부파일이 있으면
 		if (path != null) {
 			File fe = new File(urlpath, path);

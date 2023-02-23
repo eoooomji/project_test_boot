@@ -13,9 +13,26 @@
 	</select>
 	
 	<!-- 영화 정보를 저장하는 쿼리 -->
-	<insert id="savemovieinfo" parameterType="MovieDTO">
-		INSERT INTO ugotfilm_MOVIE(MOVIECODE, TITLE, OVERVIEW, RELEASE_date, VOTE_verage, genre_ids, POSTER_URL)
-		VALUES(#{MOVIECODE}, #{TITLE}, #{OVERVIEW}, #{RELEASE_date}, #{VOTE_verage}, #{genre_ids}, #{POSTER_URL})
+	<insert id="saveMovie" parameterType="MovieDTO">
+		INSERT INTO ugotfilm_movie(moviecode, title, poster_url)
+		VALUES(#{moviecode}, #{title}, #{poster_url, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="saveCrew" parameterType="PersonDTO">
+		INSERT INTO ugotfilm_director(personcode, name, profile_url)
+		VALUES(#{personcode}, #{name}, #{profile_url, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="saveCast" parameterType="PersonDTO">
+		INSERT INTO ugotfilm_cast(personcode, name, profile_url)
+		VALUES(#{personcode}, #{name}, #{profile_url, jdbcType=VARCHAR})
+	</insert>
+	
+	
+	<!-- 유저 취향 정보 추가 -->
+	<insert id="choiceMovie" parameterType="map">
+		INSERT INTO ugotfilm_movie_choice(usercode, moviecode, choice_date)
+		VALUES(#{usercode}, #{moviecode},sysdate)
 	</insert>
 	
 	

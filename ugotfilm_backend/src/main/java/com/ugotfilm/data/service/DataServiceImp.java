@@ -1,5 +1,7 @@
 package com.ugotfilm.data.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import com.ugotfilm.data.dao.DataDao;
 import com.ugotfilm.data.dto.GenreDTO;
 import com.ugotfilm.data.dto.MovieDTO;
 import com.ugotfilm.data.dto.PersonDTO;
+
 
 @Service
 public class DataServiceImp implements DataService{
@@ -22,15 +25,20 @@ public class DataServiceImp implements DataService{
 	public int saveMovieProcess(MovieDTO data) {
 		return dao.saveMovie(data);
 	}
-
+	
 	@Override
-	public int savePersonProcess(PersonDTO data) {
-		return dao.savePerson(data);
+	public int saveCrewProcess(PersonDTO data) {
+		return dao.saveCrew(data);
 	}
 
 	@Override
-	public int saveGenreProcess(GenreDTO data) {
-		return dao.saveGenre(data);
+	public List<PersonDTO> saveCastProcess() {
+		return dao.saveCast();
+	}
+
+	@Override
+	public List<GenreDTO> saveGenreProcess() {
+		return dao.saveGenre();
 	}
 
 	@Override
@@ -39,13 +47,18 @@ public class DataServiceImp implements DataService{
 	}
 
 	@Override
-	public int choicePersonProcess(int usercode, int personcode) {
-		return dao.choicePerson(usercode, personcode);
+	public int choiceCastProcess(int usercode, int castcode) {
+		return dao.choiceCast(usercode, castcode);
+	}
+
+	
+	@Override
+	public int choiceCrewProcess(int usercode, int crewcode) {
+		return dao.choiceCrew(usercode, crewcode);
 	}
 
 	@Override
 	public int choiceGenreProcess(int usercode, int genrecode) {
 		return dao.choiceGenre(usercode, genrecode);
 	}
-
 }

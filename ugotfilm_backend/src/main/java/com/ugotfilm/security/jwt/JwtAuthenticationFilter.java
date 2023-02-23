@@ -101,8 +101,7 @@ public class JwtAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 		body.put("username", principalDetails.getUser().getUsername());
 		body.put("authRole", principalDetails.getUser().getAuthRole());
 		body.put("usercode", principalDetails.getUser().getUsercode());
-		body.put("gender", principalDetails.getUser().getGender());
-		
+		body.put("nickname", principalDetails.getUser().getNickname());
 		
 		ObjectMapper mapper= new ObjectMapper();
 		mapper.writeValue(response.getOutputStream(), body );       		

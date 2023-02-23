@@ -24,4 +24,7 @@ public class PersonDTO {
 	private String name;
 	private String poster_url;
 	private String position;
+	
+	private String profile_url;
+	
 }
