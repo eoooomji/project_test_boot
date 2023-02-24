@@ -15,6 +15,8 @@ create table ugotfilm_user(
 
 DROP SEQUENCE ugotfilm_user_usercode_seq;
 
+DROP TABLE UGOTFILM_USER ;
+
 create sequence ugotfilm_user_usercode_seq start with 1 increment by 1 nocache nocycle;
 
 -- 회원 정보 샘플
@@ -157,7 +159,7 @@ SELECT m.* FROM (
 	SELECT b.moviecode, count(b.moviecode) AS count
 	FROM UGOTFILM_USER  a, UGOTFILM_MOVIE_CHOICE  b
 	WHERE a.usercode = b.usercode
-	AND a.gender = (SELECT gender FROM UGOTFILM_USER WHERE usercode= 1) -- 유저 코드 값에 따라 바뀐다.
+	AND a.gender = (SELECT gender FROM UGOTFILM_USER WHERE usercode= 3) -- 유저 코드 값에 따라 바뀐다.
 	GROUP BY b.moviecode) g
 LEFT JOIN UGOTFILM_MOVIE m ON m.moviecode = g.moviecode ORDER BY count desc;
 
@@ -197,16 +199,9 @@ LEFT JOIN UGOTFILM_GENRE_CHOICE ugc ON ugc.usercode = uu.usercode)
 WHERE (TRUNC(((to_number(to_char(sysdate, 'yyyy')) - birth) / 10 )) * 10) = 20)
 GROUP BY genrecode;
 
-select * from
-		(
-		select g.name, u.* from (
-		select genrecode, count(genrecode) as count
-		from ugotfilm_genre_choice
-		where usercode= #{usercode}
-		group by genrecode) u
-		left join ugotfilm_genre g on g.genrecode=u.genrecode
-		order by count desc)
-		where rownum < 2
+-------------------------------------------------------
+
+
 
 
 

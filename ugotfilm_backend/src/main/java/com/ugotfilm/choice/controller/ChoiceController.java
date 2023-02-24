@@ -65,7 +65,7 @@ public class ChoiceController {
 		// 프론트로 보낼 정보 세팅
 		Map<String, Object> map = new HashMap<>();
 		// 기준 정보(연령대, 성별)
-		map.put("choice", userChoiceInfo(user));
+		
 
 		// 전체 기준 가장 많이 클릭한 장르, 영화리스트, 감독, 배우
 		map.put("bestMovie", bestMovie());
@@ -83,15 +83,17 @@ public class ChoiceController {
 
 		int num = (int) ((Math.random() * 10000) % 10);
 		if (num % 2 == 0) {
-			System.out.println("짝" + num);
+
 			// 로그인한 유저 성별 기준 가장 많이 클릭한 장르, 영화 리스트, 감독, 배우
+			map.put("user", userChoiceInfo(user).getGender());
 			map.put("CurationMovie", bestGenderMovie(user));
 			map.put("CurationGenre", bestGenderGenre(user));
 			map.put("CurationDirector", bestGenderDirector(user));
 			map.put("CurationCast", bestGenderCast(user));
 		} else {
-			System.out.println("홀" + num);
+
 			// 로그인한 유저 연령대 기준 가장 많이 클릭한 장르, 영화 리스트, 감독, 배우
+			map.put("user", userChoiceInfo(user).getAgeGroup());
 			map.put("CurationMovie", bestBirthMovie(user));
 			map.put("CurationGenre", bestBirthGenre(user));
 			map.put("CurationDirector", bestBirthDirector(user));

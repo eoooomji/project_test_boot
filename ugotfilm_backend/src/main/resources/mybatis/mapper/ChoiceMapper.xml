@@ -218,7 +218,7 @@
 		left join ugotfilm_user u 
 		on c.usercode=u.usercode)r 
 		group by moviecode 
-		order by count desc) where rownum=1)r 
+		order by count desc))r 
 		left join ugotfilm_movie g 
 		on g.moviecode=r.moviecode
 	</select>
